@@ -6,22 +6,23 @@ class _Manejo_json {
   // creacion de una clase
   List<dynamic> lista_dinamica = []; // lista con un tipo de dato dinamico
 
-  _Manejo_json() {
-    // metodo constructor de la clase manejo json
-    _cargar_datos(); // llamamos al metodo Cargar_datos donde se va a leer el json
-  }
+/* creamos el metodo cargar_datos, debe ser un future con async y await para 
+poder manejar la carga de datos antes de que se cargue la vista */
 
-  _cargar_datos() {
+  Future<List<dynamic>> cargar_datos() async {
     // en este metodo se llama al archivo json
-    rootBundle.loadString("archivos_json/menu_opts.json").then((datos) {
-      // le pasamos por parametro la ruta del archivo
+    final respuesta =
+        await rootBundle.loadString("archivos_json/menu_opts.json");
+    // le pasamos por parametro la ruta del archivo
 
-      // Transformacion de la lectura del Json a MAP
-      Map mapa_json =
-          jsonDecode(datos); // guardamos los datos del archivo json en el mapa
-      lista_dinamica = mapa_json[
-          'rutas']; // pasamos el mapa a la lista que se declaro al inicio, especificamos la llave del json
-    });
+    // Transformacion de la lectura del Json a MAP
+
+    Map mapa_json = jsonDecode(
+        respuesta); // guardamos los datos del archivo json en el mapa
+
+    lista_dinamica = mapa_json[
+        'rutas']; // pasamos el mapa a la lista que se declaro al inicio, especificamos la llave del json
+    return lista_dinamica;
   }
 }
 

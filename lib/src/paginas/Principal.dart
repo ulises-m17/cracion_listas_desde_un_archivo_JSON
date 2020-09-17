@@ -4,8 +4,6 @@ import 'package:pantalla_inicio/src/manejo_de_jsons/manejo_json.dart';
 class Principal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // ignore: todo
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text("Pantalla principal"),
@@ -18,26 +16,36 @@ class Principal extends StatelessWidget {
   Widget _listaVews() {
     // Metodo de tipo widget
 
-    print(objeto_manejoJson
-        .lista_dinamica); // llamamos a la clase del manejo del json y llamamos a la lista donde se guardaron los datos
+// objeto de la clase manejo_json
+    objeto_manejoJson.cargar_datos().then((lista_dinamica) {
+      print(lista_dinamica);
+    });
 
-    return ListView(
-      // que retorna un ListView que es un Widget
-      children:
-          _listaItems(), // retornamos la listView que se llena en el metodo listItems por eso lo llamamos
-    );
+    return FutureBuilder(
+        future: objeto_manejoJson
+            .cargar_datos(), // llamamos al metodo cargar datos que es el que contiene los datos del json
+        builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+          return ListView(
+              children:
+                  _listaItems(snapshot.data)); // retornamos el widgets listView
+        });
   }
 
-  List<Widget> _listaItems() {
+  List<Widget> _listaItems(List<dynamic> data) {
     //Metodo de tipo list widget
-    return [
-      // retornamos una lista de Widgets puden ser de cualquier tipo en este caso seran listTitle
-      ListTile(
-        title: Text("fhfk"),
-      ),
-      ListTile(
-        title: Text("fhfk"),
-      ),
-    ];
+    final List<Widget> widgets = [];
+
+    data.forEach((element) {
+      final Widget_temporal = ListTile(
+        // creamos los widgets que contendra el listview de arriba
+        title: Text(element[
+            'texto']), // element accedera al contenido con el identificador texto del archivo json
+        leading: Icon(Icons.add_location),
+      );
+
+      widgets..add(Widget_temporal)..add(Divider());
+    });
+
+    return widgets;
   }
 }
