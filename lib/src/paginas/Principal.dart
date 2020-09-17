@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pantalla_inicio/src/manejo_de_jsons/manejo_json.dart';
+import 'package:pantalla_inicio/src/recurso_iconos/iconos_dinamicos.dart';
 
 class Principal extends StatelessWidget {
   @override
@@ -40,7 +41,7 @@ class Principal extends StatelessWidget {
         // creamos los widgets que contendra el listview de arriba
         title: Text(element[
             'texto']), // element accedera al contenido con el identificador texto del archivo json
-        leading: Icon(Icons.add_location),
+        leading: getIcon(element['icon']),
       );
 
       widgets..add(Widget_temporal)..add(Divider());
