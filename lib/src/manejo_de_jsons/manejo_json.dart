@@ -15,7 +15,12 @@ class _Manejo_json {
     // en este metodo se llama al archivo json
     rootBundle.loadString("archivos_json/menu_opts.json").then((datos) {
       // le pasamos por parametro la ruta del archivo
-      print(datos);
+
+      // Transformacion de la lectura del Json a MAP
+      Map mapa_json =
+          jsonDecode(datos); // guardamos los datos del archivo json en el mapa
+      lista_dinamica = mapa_json[
+          'rutas']; // pasamos el mapa a la lista que se declaro al inicio, especificamos la llave del json
     });
   }
 }
