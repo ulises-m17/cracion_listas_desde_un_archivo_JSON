@@ -41,7 +41,8 @@ class Principal extends StatelessWidget {
         // creamos los widgets que contendra el listview de arriba
         title: Text(element[
             'texto']), // element accedera al contenido con el identificador texto del archivo json
-        leading: getIcon(element['icon']),
+        leading: getIcon(element[
+            'icon']), // getIcon para obtener los iconos del archivo creado
       );
 
       widgets..add(Widget_temporal)..add(Divider());
